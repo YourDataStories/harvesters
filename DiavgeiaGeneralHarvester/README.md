@@ -1,0 +1,1 @@
+V 1.0 Fetch the decisions of a day or of a time period, the organizations, their units and signers and add them to the RDF graph.
