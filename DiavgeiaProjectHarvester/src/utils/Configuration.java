@@ -21,19 +21,19 @@ public class Configuration {
     
     private static final String PROP_BASE_URL = "https://diavgeia.gov.gr/luminapi/opendata"; //set to "" for test
     private static final String PROP_AUTH = "true"; //set to false for test
-    private static final String PROP_USERNAME = "*****";
-    private static final String PROP_PASSWORD = "*******";
+    private static final String PROP_USERNAME = "****";
+    private static final String PROP_PASSWORD = "*****";
     
     public static final String PROP_BASE_URL_DEFAULT = "https://test3.diavgeia.gov.gr/luminapi/opendata";
     public static final String PROP_AUTH_DEFAULT = "false";
     
     public static final boolean searchDay = false;
     public static final boolean searchPeriod = true;
-    public static final boolean searchMontlhy = false;
+    public static final boolean searchMontlhy = true;
 	
     public static final int RESULTS_PER_PAGE = 500; //set to 500
-    public static final String rdfName = "Diavgeia2.rdf"; //Diavgeia2_New_daily
-    public static final String FILEPATH = "**************";
+    public static final String rdfName = "Overall_subprojects_15-03-2016.rdf"; //Diavgeia2_New_daily
+    public static final String FILEPATH = "/Users/giovaf/Documents/diavgeia_harvester/";
     
     private String baseUrl;
     private boolean auth;

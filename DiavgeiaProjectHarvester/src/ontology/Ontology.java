@@ -26,6 +26,9 @@ public class Ontology {
 	public static final String dcPrefix;
 	public static final String pcdtPrefix;
 	public static final String vcardPrefix;
+	public static final String muPrefix;
+	public static final String kindPrefix;
+	public static final String procTypesPrefix;
 	
 	/**Classes**/
 	//eLod
@@ -185,6 +188,7 @@ public class Ontology {
 	public static final Property ada;
 	public static final Property protocolNumber;
 	public static final Property decisionTypeId;
+	public static final Property decisionType;
 	public static final Property submissionTimestamp;
 	public static final Property versionId;
 	public static final Property correctedVersionId;
@@ -237,6 +241,8 @@ public class Ontology {
 	public static final Property cofinancedProject;
 	public static final Property lawYear;
 	public static final Property lawNumber;
+	public static final Property refersTo;
+	public static final Property uuid;
 	//GR
 	public static final Property vatId;
 	public static final Property name;
@@ -290,6 +296,9 @@ public class Ontology {
 		dcPrefix = "http://purl.org/dc/elements/1.1/";
 		pcdtPrefix = "http://purl.org/procurement/public-contracts-datatypes#";
 		vcardPrefix = "http://www.w3.org/2006/vcard/ns#";
+		muPrefix = "http://mu.semte.ch/vocabularies/";
+		kindPrefix = "http://purl.org/procurement/public-contracts-kinds#";
+		procTypesPrefix = "http://purl.org/procurement/public-contracts-procedure-types#";
 		
 		/** Resources **/
 		//eLod
@@ -413,7 +422,7 @@ public class Ontology {
 		broader = ResourceFactory.createProperty(skosPrefix + "broader");
 		prefLabel = ResourceFactory.createProperty(skosPrefix + "prefLabel");
 		//dc
-		publisher = ResourceFactory.createProperty(dcPrefix + "publisher");
+		publisher = ResourceFactory.createProperty(dctermsPrefix + "publisher");
 		//pc
 		procedureType = ResourceFactory.createProperty(publicContractsPrefix + "procedureType");
 		kind = ResourceFactory.createProperty(publicContractsPrefix + "kind");
@@ -459,6 +468,7 @@ public class Ontology {
 		organizationUnitId = ResourceFactory.createProperty(eLodPrefix + "organizationUnitId");
 		organizationUnitAbbreviation = ResourceFactory.createProperty(eLodPrefix + "organizationUnitAbbreviation");
 		decisionTypeId = ResourceFactory.createProperty(eLodPrefix + "decisionTypeId");
+		decisionType = ResourceFactory.createProperty(eLodPrefix + "decisionType");
 		versionId = ResourceFactory.createProperty(eLodPrefix + "versionId");
 		correctedVersionId = ResourceFactory.createProperty(eLodPrefix + "correctedVersionId");
 		url = ResourceFactory.createProperty(eLodPrefix + "url");
@@ -503,6 +513,8 @@ public class Ontology {
 		cofinancedProject = ResourceFactory.createProperty(eLodPrefix + "coFinancedProject");
 		lawYear = ResourceFactory.createProperty(eLodPrefix + "lawYear");
 		lawNumber = ResourceFactory.createProperty(eLodPrefix + "lawNumber");
+		refersTo = ResourceFactory.createProperty(eLodPrefix + "refersTo");
+		uuid = ResourceFactory.createProperty(muPrefix + "uuid");
 		//GR
 		vatId = ResourceFactory.createProperty(goodRelationsPrefix + "vatID");
 		valueAddedTaxIncluded = ResourceFactory.createProperty(goodRelationsPrefix + "valueAddedTaxIncluded");
@@ -513,7 +525,7 @@ public class Ontology {
 		firstName = ResourceFactory.createProperty(foafPrefix + "firstName");
 		lastName = ResourceFactory.createProperty(foafPrefix + "lastName");
 		//dc
-		subject = ResourceFactory.createProperty(dcPrefix + "subject");
+		subject = ResourceFactory.createProperty(dctermsPrefix + "subject");
 		//dcTerms
 		issued = ResourceFactory.createProperty(dctermsPrefix + "issued");
 		//vCard
