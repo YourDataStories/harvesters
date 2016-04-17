@@ -98,12 +98,11 @@ public class RdfActions {
 						Ontology.instancePrefix + "CommittedItem/" + uriDecisionFactor, Ontology.committedItemResource);
 				/** Original Decision - Corrected Decision **/
 				Resource originalCommittedItemResource = model.createResource(
-						Ontology.instancePrefix + "CommittedItem/" + decisionObject.getAda(),
-						Ontology.committedItemResource);
+						Ontology.instancePrefix + "CommittedItem/" + decisionObject.getAda());
 //				model.createResource(Ontology.instancePrefix + "CommittedItem/" + uriDecisionFactor,
 //						Ontology.financialResource);
 				model.add(committedItemResource, RDF.type, Ontology.financialResource);
-				model.add(originalCommittedItemResource, RDF.type, Ontology.financialResource);
+//				model.add(originalCommittedItemResource, RDF.type, Ontology.financialResource);
 				originalCommittedItemResource.addProperty(Ontology.hasCorrectedDecision, committedItemResource);
 				subprojectResource.addProperty(Ontology.hasRelatedAdministrativeDecision,
 						originalCommittedItemResource);
@@ -146,7 +145,7 @@ public class RdfActions {
 			committedItemResource.addLiteral(Ontology.submissionTimestamp,
 					hm.dateToCalendarConverter(decisionObject.getSubmissionTimestamp()));
 			/** CommittedItem - Organization **/
-			if (decisionObject.getUnitIds() != null) {
+			if (decisionObject.getUnitIds() != null && decisionObject.getUnitIds().size() > 0) {
 				for (String unitId : decisionObject.getUnitIds()) {
 					committedItemResource.addProperty(Ontology.publisher,
 							model.getResource(Ontology.instancePrefix + "OrganizationalUnit/" + unitId));
@@ -293,7 +292,7 @@ public class RdfActions {
 					unitPriceSpecificationResource.addLiteral(Ontology.valueAddedTaxIncluded, true);
 				}
 
-				if (amountWithVat.get("currency") != null) {
+				if ((amountWithVat.get("currency") != null) || (!amountWithVat.get("currency").toString().isEmpty())) {
 					unitPriceSpecificationResource.addProperty(Ontology.hasCurrency,
 							model.getResource(Ontology.instancePrefix + "Currency/" + amountWithVat.get("currency")));
 				}
@@ -487,7 +486,7 @@ public class RdfActions {
 
 						/** kaeResource **/
 						Resource kaeResource = model.createResource(
-								Ontology.instancePrefix + "kaeCodes/" + amountWithKae.get(i).get("kae"),
+								Ontology.instancePrefix + "kaeCodes/" + amountWithKae.get(i).get("kae").toString().replace(" ", "_"),
 								Ontology.kaeResource);
 						kaeResource.addLiteral(Ontology.kae,
 								hm.cleanInputData((String) amountWithKae.get(i).get("kae")));
@@ -539,8 +538,8 @@ public class RdfActions {
 						Ontology.decisionResource);
 				/** Original Decision - Corrected Decision **/
 				Resource originalDecisionResource = model.createResource(
-						Ontology.instancePrefix + "Decision/" + decisionObject.getAda(), Ontology.decisionResource);
-				model.add(originalDecisionResource, RDF.type, Ontology.nonFinancialResource);
+						Ontology.instancePrefix + "Decision/" + decisionObject.getAda());
+//				model.add(originalDecisionResource, RDF.type, Ontology.nonFinancialResource);
 				model.add(decisionResource, RDF.type, Ontology.nonFinancialResource);
 				originalDecisionResource.addProperty(Ontology.hasCorrectedDecision, decisionResource);
 				projectResource.addProperty(Ontology.hasRelatedAdministrativeDecision, originalDecisionResource);
@@ -575,175 +574,156 @@ public class RdfActions {
 //					decisionResource);
 			// define decision types of Non Financial Decisions
 			if (decisionTypeId.equalsIgnoreCase("2.4.7.1")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΛΟΙΠΕΣ ΑΤΟΜΙΚΕΣ ΔΙΟΙΚΗΤΙΚΕΣ ΠΡΑΞΕΙΣ", "el"));
+				model.add(decisionResource, Ontology.decisionType,
+						model.createLiteral("Other Individual Administrative Acts", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Ε.4")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΑΛΛΗ ΠΡΑΞΗ ΑΝΑΠΤΥΞΙΑΚΟΥ ΝΟΜΟΥ", "el"));
+				model.add(decisionResource, Ontology.decisionType,
+						model.createLiteral("Another Development Act", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Γ.2")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral(
 								"ΠΡΑΞΗ ΠΟΥ ΑΦΟΡΑ ΣΕ ΣΥΛΛΟΓΙΚΟ ΟΡΓΑΝΟ - ΕΠΙΤΡΟΠΗ - ΟΜΑΔΑ ΕΡΓΑΣΙΑΣ - ΟΜΑΔΑ ΕΡΓΟΥ - ΜΕΛΗ ΣΥΛΛΟΓΙΚΟΥ ΟΡΓΑΝΟΥ",
 								"el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Work Team Act", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Γ.3.4")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΣΥΜΒΑΣΗ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Contract", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Α.2")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΚΑΝΟΝΙΣΤΙΚΗ ΠΡΑΞΗ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Regulatory Act", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Α.1.1")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΝΟΜΟΣ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Law", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Α.1.2")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΠΡΑΞΗ ΝΟΜΟΘΕΤΙΚΟΥ ΠΕΡΙΕΧΟΜΕΝΟΥ (Σύνταγμα, άρθρο 44, παρ 1)", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Legislative Act", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Α.3")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΕΓΚΥΚΛΙΟΣ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Newsletter", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Α.4")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΓΝΩΜΟΔΟΤΗΣΗ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Opinion", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Α.5")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΠΡΑΚΤΙΚΑ (Νομικού Συμβουλίου του Κράτους)", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Proceedings", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Α.6")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΕΚΘΕΣΗ ΑΠΟΤΙΜΗΣΗΣ ΓΙΑ ΤΗΝ ΚΑΤΑΣΤΑΣΗ ΤΗΣ ΥΦΙΣΤΑΜΕΝΗΣ ΝΟΜΟΘΕΣΙΑΣ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Valuation Report of existing legislation", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Β.1.1")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΕΓΚΡΙΣΗ ΠΡΟΥΠΟΛΟΓΙΣΜΟΥ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Budget Approval", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Β.1.2")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΕΠΙΤΡΟΠΙΚΟ ΕΝΤΑΛΜΑ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Warrant of Committee", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Β.4")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΔΩΡΕΑ - ΕΠΙΧΟΡΗΓΗΣΗ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Subsidy", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Β.5")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΠΑΡΑΧΩΡΗΣΗ ΧΡΗΣΗΣ ΠΕΡΙΟΥΣΙΑΚΩΝ ΣΤΟΙΧΕΙΩΝ", "el"));
+				model.add(decisionResource, Ontology.decisionType,
+						model.createLiteral("Property Use", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("100")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model
 						.createLiteral("ΠΡΑΞΗ ΠΟΥ ΑΦΟΡΑ ΣΕ ΘΕΣΗ ΓΕΝΙΚΟΥ - ΕΙΔΙΚΟΥ ΓΡΑΜΜΑΤΕΑ - ΜΟΝΟΜΕΛΕΣ ΟΡΓΑΝΟ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model
+						.createLiteral("Position Secretary", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Γ.3.1")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΠΡΟΚΗΡΥΞΗ ΠΛΗΡΩΣΗΣ ΘΕΣΕΩΝ", "el"));
+				model.add(decisionResource, Ontology.decisionType,
+						model.createLiteral("Proclamation of Filling Posts", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Γ.3.2")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΠΙΝΑΚΕΣ ΕΠΙΤΥΧΟΝΤΩΝ, ΔΙΟΡΙΣΤΕΩΝ & ΕΠΙΛΑΧΟΝΤΩΝ", "el"));
+				model.add(decisionResource, Ontology.decisionType,
+						model.createLiteral("Reserve and Appointed Lists", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Γ.3.3")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΔΙΟΡΙΣΜΟΣ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Assignation", "en"));
 			}
 			if (decisionTypeId.equalsIgnoreCase("Γ.3.5")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType, model.createLiteral("ΥΠΗΡΕΣΙΑΚΗ ΜΕΤΑΒΟΛΗ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Official Change", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Γ.3.6")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΑΘΩΩΤΙΚΗ ΠΕΙΘΑΡΧΙΚΗ ΑΠΟΦΑΣΗ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Acquittal Disciplinary Decision", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Ε.1")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΠΡΑΞΗ ΥΠΑΓΩΓΗΣ ΕΠΕΝΔΥΣΕΩΝ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Investments", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Ε.2")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΣΥΜΒΑΣΗ-ΠΡΑΞΕΙΣ ΑΝΑΠΤΥΞΙΑΚΩΝ ΝΟΜΩΝ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Development Acts", "en"));
 			}
 			if (decisionTypeId.equalsIgnoreCase("Ε.3")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΑΠΟΦΑΣΗ ΕΝΑΡΞΗΣ ΠΑΡΑΓΩΓΙΚΗΣ ΛΕΙΤΟΥΡΓΙΑΣ ΕΠΕΝΔΥΣΗΣ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Investment Operations", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("Ε.4")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΑΛΛΗ ΠΡΑΞΗ ΑΝΑΠΤΥΞΙΑΚΟΥ ΝΟΜΟΥ", "el"));
+				model.add(decisionResource, Ontology.decisionType, model.createLiteral("Other Development Act", "en"));
 			}
 
 			if (decisionTypeId.equalsIgnoreCase("2.4.6.1")) {
-				// model.add(decisionResource, Ontology.decisionType,
-				// model.createLiteral("", "en"));
 				model.add(decisionResource, Ontology.decisionType,
 						model.createLiteral("ΠΡΑΞΕΙΣ ΧΩΡΟΤΑΞΙΚΟΥ - ΠΟΛΕΟΔΟΜΙΚΟΥ ΠΕΡΙΕΧΟΜΕΝΟΥ", "el"));
+				model.add(decisionResource, Ontology.decisionType,
+						model.createLiteral("Spatial Acts", "en"));
 			}
 
 			decisionResource.addLiteral(Ontology.ada, decisionObject.getAda());
@@ -754,7 +734,7 @@ public class RdfActions {
 			decisionResource.addLiteral(Ontology.submissionTimestamp,
 					hm.dateToCalendarConverter(decisionObject.getSubmissionTimestamp()));
 			/** Decision - Organization **/
-			if (decisionObject.getUnitIds() != null) {
+			if (decisionObject.getUnitIds() != null && decisionObject.getUnitIds().size() > 0) {
 				for (String unitId : decisionObject.getUnitIds()) {
 					decisionResource.addProperty(Ontology.publisher,
 							model.getResource(Ontology.instancePrefix + "OrganizationalUnit/" + unitId));
@@ -968,7 +948,7 @@ public class RdfActions {
 			// -------specific Β.4 metadata-------//
 			if (decisionObject.getExtraFieldValues().get("kae") != null) {
 				Resource kaeResource = model.createResource(
-						Ontology.instancePrefix + "KAE/" + decisionObject.getExtraFieldValues().get("kae"),
+						Ontology.instancePrefix + "kaeCodes/" + decisionObject.getExtraFieldValues().get("kae").toString().replace(" ", "_"),
 						Ontology.kaeResource);
 				decisionResource.addProperty(Ontology.hasKae, kaeResource);
 			}
@@ -1109,7 +1089,7 @@ public class RdfActions {
 						unitPriceSpecificationResource.addLiteral(Ontology.valueAddedTaxIncluded, true);
 					}
 
-					if (posSalaryDetails.get("currency") != null) {
+					if ((posSalaryDetails.get("currency") != null) || (!posSalaryDetails.get("currency").toString().isEmpty())) {
 						unitPriceSpecificationResource.addProperty(Ontology.hasCurrency, model
 								.getResource(Ontology.instancePrefix + "Currency/" + posSalaryDetails.get("currency")));
 					}
@@ -1151,7 +1131,7 @@ public class RdfActions {
 						unitPriceSpecificationResource.addLiteral(Ontology.valueAddedTaxIncluded, true);
 					}
 
-					if (amVATDetails.get("currency") != null) {
+					if ((amVATDetails.get("currency") != null) || (!amVATDetails.get("currency").toString().isEmpty())) {
 						unitPriceSpecificationResource.addProperty(Ontology.hasCurrency, model
 								.getResource(Ontology.instancePrefix + "Currency/" + amVATDetails.get("currency")));
 					}
@@ -2044,7 +2024,7 @@ public class RdfActions {
 						unitPriceSpecificationResource.addLiteral(Ontology.valueAddedTaxIncluded, true);
 					}
 
-					if (contractAmountDetails.get("currency") != null) {
+					if ((contractAmountDetails.get("currency") != null) || (!contractAmountDetails.get("currency").toString().isEmpty())) {
 						unitPriceSpecificationResource.addProperty(Ontology.hasCurrency, model.getResource(
 								Ontology.instancePrefix + "Currency/" + contractAmountDetails.get("currency")));
 					}
@@ -2186,7 +2166,7 @@ public class RdfActions {
 
 							/** kaeResource **/
 							Resource kaeResource = model.createResource(
-									Ontology.instancePrefix + "KAE/" + amountWithKae.get(i).get("kae"),
+									Ontology.instancePrefix + "kaeCodes/" + amountWithKae.get(i).get("kae").toString().replace(" ", "_"),
 									Ontology.kaeResource);
 							kaeResource.addLiteral(Ontology.kae,
 									hm.cleanInputData((String) amountWithKae.get(i).get("kae")));
@@ -2276,9 +2256,8 @@ public class RdfActions {
 							Ontology.expenseApprovalItemResource);
 					/** Original Decision - Corrected Decision **/
 					Resource originalExpenseApprovalOrPaymentResource = model.createResource(
-							Ontology.instancePrefix + "ExpenseApprovalItem/" + decisionObject.getAda(),
-							Ontology.expenseApprovalItemResource);
-					model.add(originalExpenseApprovalOrPaymentResource, RDF.type, Ontology.financialResource);
+							Ontology.instancePrefix + "ExpenseApprovalItem/" + decisionObject.getAda());
+//					model.add(originalExpenseApprovalOrPaymentResource, RDF.type, Ontology.financialResource);
 					model.add(expenseApprovalOrPaymentResource, RDF.type, Ontology.financialResource);
 					originalExpenseApprovalOrPaymentResource.addProperty(Ontology.hasCorrectedDecision,
 							expenseApprovalOrPaymentResource);
@@ -2332,9 +2311,8 @@ public class RdfActions {
 							Ontology.spendingItemResource);
 					/** Original Decision - Corrected Decision **/
 					Resource originalExpenseApprovalOrPaymentResource = model.createResource(
-							Ontology.instancePrefix + "SpendingItem/" + decisionObject.getAda(),
-							Ontology.spendingItemResource);
-					model.add(originalExpenseApprovalOrPaymentResource, RDF.type, Ontology.financialResource);
+							Ontology.instancePrefix + "SpendingItem/" + decisionObject.getAda());
+//					model.add(originalExpenseApprovalOrPaymentResource, RDF.type, Ontology.financialResource);
 					model.add(expenseApprovalOrPaymentResource, RDF.type, Ontology.financialResource);
 					originalExpenseApprovalOrPaymentResource.addProperty(Ontology.hasCorrectedDecision,
 							expenseApprovalOrPaymentResource);
@@ -2389,7 +2367,7 @@ public class RdfActions {
 			expenseApprovalOrPaymentResource.addLiteral(Ontology.submissionTimestamp,
 					hm.dateToCalendarConverter(decisionObject.getSubmissionTimestamp()));
 			/** ExpenseApprovalItem or Payment - Organization **/
-			if (decisionObject.getUnitIds() != null) {
+			if (decisionObject.getUnitIds() != null && decisionObject.getUnitIds().size() > 0) {
 				for (String unitId : decisionObject.getUnitIds()) {
 					expenseApprovalOrPaymentResource.addProperty(Ontology.publisher,
 							model.getResource(Ontology.instancePrefix + "OrganizationalUnit/" + unitId));
@@ -2654,7 +2632,7 @@ public class RdfActions {
 						if ((sponsorDetails.get(i).get("kae") != null) && (sponsorDetails.get(i).get("kae") != "")) {
 							/** kaeResource **/
 							Resource kaeResource = model.createResource(
-									Ontology.instancePrefix + "kaeCodes/" + sponsorDetails.get(i).get("kae"),
+									Ontology.instancePrefix + "kaeCodes/" + sponsorDetails.get(i).get("kae").toString().replace(" ", "_"),
 									Ontology.kaeResource);
 							kaeResource.addLiteral(Ontology.kae,
 									hm.cleanInputData((String) sponsorDetails.get(i).get("kae")));
@@ -2692,7 +2670,7 @@ public class RdfActions {
 													XSDDatatype.XSDfloat));
 									unitPriceSpecificationResource.addLiteral(Ontology.valueAddedTaxIncluded, true);
 								}
-								if (expenseAmountDetails.get("currency") != null) {
+								if ((expenseAmountDetails.get("currency") != null) || (!expenseAmountDetails.get("currency").toString().isEmpty())) {
 									unitPriceSpecificationResource.addProperty(Ontology.hasCurrency,
 											model.getResource(Ontology.instancePrefix + "Currency/"
 													+ expenseAmountDetails.get("currency")));
@@ -2810,8 +2788,8 @@ public class RdfActions {
 						Ontology.contractResource);
 				/** Original Decision - Corrected Decision **/
 				Resource originalContractResource = model.createResource(
-						Ontology.instancePrefix + "Contract/" + decisionObject.getAda(), Ontology.contractResource);
-				model.add(originalContractResource, RDF.type, Ontology.financialResource);
+						Ontology.instancePrefix + "Contract/" + decisionObject.getAda());
+//				model.add(originalContractResource, RDF.type, Ontology.financialResource);
 				model.add(contractResource, RDF.type, Ontology.financialResource);
 				originalContractResource.addProperty(Ontology.hasCorrectedDecision, contractResource);
 				subprojectResource.addProperty(Ontology.hasRelatedAdministrativeDecision,
@@ -2875,7 +2853,7 @@ public class RdfActions {
 			contractResource.addLiteral(Ontology.submissionTimestamp,
 					hm.dateToCalendarConverter(decisionObject.getSubmissionTimestamp()));
 			/** Contract - Organization **/
-			if (decisionObject.getUnitIds() != null) {
+			if (decisionObject.getUnitIds() != null && decisionObject.getUnitIds().size() > 0) {
 				for (String unitId : decisionObject.getUnitIds()) {
 					contractResource.addProperty(Ontology.publisher,
 							model.getResource(Ontology.instancePrefix + "OrganizationalUnit/" + unitId));
@@ -2983,7 +2961,7 @@ public class RdfActions {
 									.createTypedLiteral(estimatedAmountDetails.get("amount"), XSDDatatype.XSDfloat));
 							unitPriceSpecificationResource.addLiteral(Ontology.valueAddedTaxIncluded, false);
 						}
-						if (estimatedAmountDetails.get("currency") != null) {
+						if ((estimatedAmountDetails.get("currency") != null) || (!estimatedAmountDetails.get("currency").toString().isEmpty())){
 							unitPriceSpecificationResource.addProperty(Ontology.hasCurrency, model.getResource(
 									Ontology.instancePrefix + "Currency/" + estimatedAmountDetails.get("currency")));
 						}
@@ -2991,6 +2969,7 @@ public class RdfActions {
 						 * Contract - UnitPriceSpecification (estimatedAmount)
 						 **/
 						contractResource.addProperty(Ontology.documentsPrice, unitPriceSpecificationResource);
+						contractResource.addProperty(Ontology.estimatedPrice, unitPriceSpecificationResource);
 					} else {
 						System.out.println("No *estimatedAmountDetails* provided (empty)\n");
 					}
@@ -3249,7 +3228,7 @@ public class RdfActions {
 									.createTypedLiteral(estimatedAmountDetails.get("amount"), XSDDatatype.XSDfloat));
 							unitPriceSpecificationResource.addLiteral(Ontology.valueAddedTaxIncluded, true);
 						}
-						if (estimatedAmountDetails.get("currency") != null) {
+						if ((estimatedAmountDetails.get("currency") != null) || (!estimatedAmountDetails.get("currency").toString().isEmpty())) {
 							unitPriceSpecificationResource.addProperty(Ontology.hasCurrency, model.getResource(
 									Ontology.instancePrefix + "Currency/" + estimatedAmountDetails.get("currency")));
 						}

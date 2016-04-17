@@ -32,7 +32,7 @@ public class Configuration {
     public static final boolean searchMontlhy = true;
 	
     public static final int RESULTS_PER_PAGE = 500; //set to 500
-    public static final String rdfName = "Overall_subprojects_15-03-2016.rdf"; //Diavgeia2_New_daily
+    public static final String rdfName = "Overall_subprojects.rdf"; //Diavgeia2_New_daily
     public static final String FILEPATH = "/Users/giovaf/Documents/diavgeia_harvester/";
     
     private String baseUrl;

@@ -164,6 +164,7 @@ public class Ontology {
 	public static final Property additionalObject; //Contract additionalObject CpvCode
 	public static final Property agreedPrice; //Contract agreedPrice UnitPriceSpecification
 	public static final Property documentsPrice; //Contract documentsPrice UnitPriceSpecification
+	public static final Property estimatedPrice; //Contract estimatedPrice UnitPriceSpecification
 	public static final Property actualPrice; //Contract actualPrice UnitPriceSpecification
 	//rov
 	public static final Property orgStatus;
@@ -214,8 +215,8 @@ public class Ontology {
 	public static final Property fekNumber;
 	public static final Property fekYear;
 	public static final Property fekTypeId;
-	public static final Property currencyId;
-	public static final Property countryId;
+//	public static final Property currencyId;
+//	public static final Property countryId;
 	public static final Property documentType;
 	public static final Property entryNumber;
 	public static final Property financialYear;
@@ -436,6 +437,7 @@ public class Ontology {
 		additionalObject = ResourceFactory.createProperty(publicContractsPrefix + "additionalObject");
 		agreedPrice = ResourceFactory.createProperty(publicContractsPrefix + "agreedPrice");
 		documentsPrice = ResourceFactory.createProperty(publicContractsPrefix + "documentsPrice");
+		estimatedPrice = ResourceFactory.createProperty(publicContractsPrefix + "estimatedPrice");
 		actualPrice = ResourceFactory.createProperty(publicContractsPrefix + "actualPrice");
 		//rov
 		orgStatus = ResourceFactory.createProperty(regOrgPrefix + "orgStatus");
@@ -484,8 +486,8 @@ public class Ontology {
 		fekNumber = ResourceFactory.createProperty(eLodPrefix + "fekNumber");
 		fekYear = ResourceFactory.createProperty(eLodPrefix + "fekYear");
 		fekTypeId = ResourceFactory.createProperty(eLodPrefix + "fekTypeId");
-		currencyId = ResourceFactory.createProperty(eLodPrefix + "currencyId");
-		countryId = ResourceFactory.createProperty(eLodPrefix + "countryId");
+//		currencyId = ResourceFactory.createProperty(eLodPrefix + "currencyId");
+//		countryId = ResourceFactory.createProperty(eLodPrefix + "countryId");
 		documentType = ResourceFactory.createProperty(eLodPrefix + "documentType");
 		entryNumber = ResourceFactory.createProperty(eLodPrefix + "entryNumber");
 		financialYear = ResourceFactory.createProperty(eLodPrefix + "financialYear");

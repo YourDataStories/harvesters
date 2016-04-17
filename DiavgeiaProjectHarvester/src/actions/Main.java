@@ -144,12 +144,12 @@ public class Main {
 			monthlyRdfActions.addFekTypeIsuesToModel(model, dictItemsList);
 
 			// Create the Countries
-			dictItemsList = handleRequests.getDictionaryItems("EE_MEMBER");
-			monthlyRdfActions.addCountriesToModel(model, dictItemsList);
+//			dictItemsList = handleRequests.getDictionaryItems("EE_MEMBER");
+//			monthlyRdfActions.addCountriesToModel(model, dictItemsList);
 
 			// Create the Currencies
-			dictItemsList = handleRequests.getDictionaryItems("CURRENCY");
-			monthlyRdfActions.addCurrenciesToModel(model, dictItemsList);
+//			dictItemsList = handleRequests.getDictionaryItems("CURRENCY");
+//			monthlyRdfActions.addCurrenciesToModel(model, dictItemsList);
 
 			// Create the Positions
 			ArrayList<Position> positionsList = handleRequests.getAllPositions();
