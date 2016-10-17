@@ -6,6 +6,17 @@ All notable changes to the harvesters will be documented in this file.
 - OpenCorporates harvester
 
 ## Pilot 2 UnifiedViews pipelines - 2016-10-11
+### Added
+- ODA Activities ZW
+- Bilateral Trade - Export ZW
+- Bilateral Trade - Import ZW
+- OpenCorporates
+- Development Region Code List
+- WDI data
+- WDI Taxonomies
+- CIA WorldFactbook
+- Language Code List
+
 ### Updated
 - Activity Status Type Code List
 - Aid Type Code List
@@ -22,18 +33,6 @@ All notable changes to the harvesters will be documented in this file.
 - ODA Transactions NL
 - Bilateraltrade - Export NL
 - Bilateraltrade - Import NL
-
-### Added
-- ODA Activities ZW
-- Bilateral Trade - Export ZW
-- Bilateral Trade - Import ZW
-- OpenCorporates
-- Development Region Code List
-- WDI data
-- WDI Taxonomies
-- CIA WorldFactbook
-- Language Code List
-
 
 ## Diavgeia Project Harvester [1.1.0] - 2016-04-17
 ### Added
