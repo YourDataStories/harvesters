@@ -1,4 +1,4 @@
-# HOW TO USE
+# Run the application
 In order to use the application, a file containing the information of the database connection is needed. The username, password and full address of the MySQL database is required. The file should be in the following format:
 
 Username= [The username]
