@@ -17,7 +17,7 @@ public class OpenCorporatesHarvester {
 			File file = new File("companies.txt");
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			String outputDir = "C:\\Users\\username\\workspace\\OpenCorporatesHarvester\\output\\";
+			String outputDir = "";
 			String line;
 			String apiToken = "?api_token=";
 			int i = 1;
