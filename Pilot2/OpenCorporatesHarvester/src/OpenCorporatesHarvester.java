@@ -22,7 +22,7 @@ public class OpenCorporatesHarvester {
 			int i = 1;
 			while ((line = bufferedReader.readLine()) != null) {
 				System.out.println("Company: " + line + apiToken);
-				fetchResource(line+apiToken, "C:\\Users\\uros.milosevic\\workspace\\OpenCorporatesHarvester\\output\\response_" + i + ".rdf");
+				fetchResource(line+apiToken, "C:\\Users\\username\\workspace\\OpenCorporatesHarvester\\output\\response_" + i + ".rdf");
 				i++;
 				//TimeUnit.SECONDS.sleep(1);
 			}
