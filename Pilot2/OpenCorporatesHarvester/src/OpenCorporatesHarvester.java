@@ -17,12 +17,13 @@ public class OpenCorporatesHarvester {
 			File file = new File("companies.txt");
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String outputDir = "C:\\Users\\username\\workspace\\OpenCorporatesHarvester\\output\\";
 			String line;
 			String apiToken = "?api_token=";
 			int i = 1;
 			while ((line = bufferedReader.readLine()) != null) {
 				System.out.println("Company: " + line + apiToken);
-				fetchResource(line+apiToken, "C:\\Users\\username\\workspace\\OpenCorporatesHarvester\\output\\response_" + i + ".rdf");
+				fetchResource(line+apiToken, outputDir + "response_" + i + ".rdf");
 				i++;
 				//TimeUnit.SECONDS.sleep(1);
 			}
