@@ -1,9 +1,9 @@
-###V 2.0 Fetch the Public Works, their related subprojects and add them to the RDF graph.
+# V 2.0 Fetch the Public Works, their related subprojects and add them to the RDF graph.
 
-##How to execute the application
+## How to execute the application
 The application is a Java executable (jar) file. It needs the Java Runtime Environment (JRE) installed, Version 8 or newer1. 
 
-##Description of Packages
+## Description of Packages
 
 - JPA package is responsible for object/relational mapping facility for managing relational data.
 - DAO Package is responsible for handling the database operation required to manipulate the entities.
