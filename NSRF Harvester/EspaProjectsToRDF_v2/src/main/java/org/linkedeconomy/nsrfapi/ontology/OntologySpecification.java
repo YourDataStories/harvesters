@@ -137,6 +137,7 @@ public class OntologySpecification {
     public static final Property actualEndDate;
     public static final Property estimatedEndDate;
     public static final Property aggregatedAmount;
+    public static final Property documentUrl;
 
     public static final Property prefLabel;
     public static final Property notation;
@@ -264,6 +265,7 @@ public class OntologySpecification {
         actualEndDate = ResourceFactory.createProperty(publicContractsPrefix + "actualEndDate");
         estimatedEndDate = ResourceFactory.createProperty(publicContractsPrefix + "estimatedEndDate");
         aggregatedAmount = ResourceFactory.createProperty(elodPrefix + "aggregatedAmount");
+        documentUrl = ResourceFactory.createProperty(elodPrefix + "documentUrl");
 
         prefLabel = ResourceFactory.createProperty(skosPrefix + "prefLabel");
         notation = ResourceFactory.createProperty(skosPrefix + "notation");

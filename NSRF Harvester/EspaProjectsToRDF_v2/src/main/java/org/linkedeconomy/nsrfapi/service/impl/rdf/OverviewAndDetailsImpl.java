@@ -93,6 +93,7 @@ public class OverviewAndDetailsImpl {
             instanceProject.addProperty(OntologySpecification.hasRegion, instanceRegion);
             instanceProject.addProperty(OntologySpecification.title, String.valueOf(overview1.getTitle().trim()), "el");
             instanceProject.addProperty(OntologySpecification.projectId, String.valueOf(overview1.getOps()), XSDDatatype.XSDstring);
+            instanceProject.addProperty(OntologySpecification.documentUrl, "http://anaptyxi.gov.gr/ergopopup.aspx?mis=" + String.valueOf(overview1.getOps()) + "&wnd=", XSDDatatype.XSDstring);
             instanceProject.addProperty(OntologySpecification.modified, overview1.getPublishDate().toString().replace(" ", "T").replace(".0", ""), XSDDatatype.XSDdateTime);
             instanceProject.addProperty(OntologySpecification.completionOfPayments, String.valueOf(CommonVariables.dfNumberOne.format(completionPayments)), XSDDatatype.XSDfloat);
             instanceProject.addProperty(OntologySpecification.completionOfContracts, String.valueOf(CommonVariables.dfNumberOne.format(completionContracts)), XSDDatatype.XSDfloat);
