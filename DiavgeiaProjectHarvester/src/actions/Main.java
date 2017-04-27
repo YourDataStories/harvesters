@@ -1,10 +1,11 @@
 package actions;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.InputStreamReader;
+//import java.util.ArrayList;
+//import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -15,9 +16,9 @@ import organizations.QueryConfiguration;
 import ontology.OntologyInitialization;
 
 import objects.Decision;
-import objects.DictionaryItems;
+//import objects.DictionaryItems;
 //import objects.Organizations;
-import objects.Position;
+//import objects.Position;
 
 import utils.Configuration;
 import utils.HelperMethods;
@@ -61,8 +62,8 @@ public class Main {
 
 		HelperMethods hm = new HelperMethods();
 		RdfActions rdfActions = new RdfActions();
-		MonthlyRdfActions monthlyRdfActions = new MonthlyRdfActions();
-		HandleApiRequests handleRequests = new HandleApiRequests();
+		// MonthlyRdfActions monthlyRdfActions = new MonthlyRdfActions();
+		// HandleApiRequests handleRequests = new HandleApiRequests();
 		OntologyInitialization ontInit = new OntologyInitialization();
 
 		/* Organizations Graph */
@@ -74,96 +75,98 @@ public class Main {
 
 		// Only the first time perform the basic initialization on the model
 		ontInit.setPrefixes(model);
-		ontInit.createHierarchies(model);
-		ontInit.addConceptSchemesToModel(model);
+		// ontInit.createHierarchies(model);
+		// ontInit.addConceptSchemesToModel(model);
 
 		/** MONTHLY **/
-		if (Configuration.searchMontlhy) {
-			DictionaryItems dictItemsList = null;
-			List<String> dictionaries = Arrays.asList("ORG_CATEGORY", "ORG_UNIT_CATEGORY", "ORG_DOMAIN", "THK",
-					"VAT_TYPE");
-
-			for (String dict : dictionaries) {
-				dictItemsList = handleRequests.getDictionaryItems(dict); // Fetch
-																			// the
-																			// items
-																			// of
-																			// the
-																			// provided
-																			// dictionary
-				monthlyRdfActions.addDiavgeiaRelatedConceptsToModel(model, dictItemsList); // create
-																							// their
-																							// SKOS
-																							// Concepts
-			}
-
-			// Create OrganizationStatus
-			monthlyRdfActions.addOrganizationStatusToModel(model);
-
-			// Create DecisionStatus
-			monthlyRdfActions.addDecisionStatusToModel(model);
-
-			// Create Regulatory Act Type
-			monthlyRdfActions.addKanonistikiToModel(model);
-
-			// Create Opinion Org Type
-			monthlyRdfActions.addOpinionToModel(model);
-
-			// Create Budget Kind
-			monthlyRdfActions.addBudgetKindToModel(model);
-
-			// Create Account Type
-			monthlyRdfActions.addAccountTypeToModel(model);
-
-			// Create Position Type
-			monthlyRdfActions.addPositionTypeToModel(model);
-
-			// Create Collective Kind
-			monthlyRdfActions.addCollectiveKindToModel(model);
-
-			// Create Collective Type
-			monthlyRdfActions.addCollectiveTypeToModel(model);
-
-			// Create Vacancy Type
-			monthlyRdfActions.addVacancyTypeToModel(model);
-
-			// Create Administrative Change
-			monthlyRdfActions.addAdminChangeToModel(model);
-
-			// Create Time Period
-			monthlyRdfActions.addTimePeriodToModel(model);
-
-			// Create SelectionCriterion
-			monthlyRdfActions.addSelectionCriteriaToModel(model);
-
-			// Create BudgetType
-			monthlyRdfActions.addBudgetTypeToModel(model);
-
-			// Create the Fek Type Issues
-			dictItemsList = handleRequests.getDictionaryItems("FEKTYPES");
-			monthlyRdfActions.addFekTypeIsuesToModel(model, dictItemsList);
-
-			// Create the Countries
-//			dictItemsList = handleRequests.getDictionaryItems("EE_MEMBER");
-//			monthlyRdfActions.addCountriesToModel(model, dictItemsList);
-
-			// Create the Currencies
-//			dictItemsList = handleRequests.getDictionaryItems("CURRENCY");
-//			monthlyRdfActions.addCurrenciesToModel(model, dictItemsList);
-
-			// Create the Positions
-			ArrayList<Position> positionsList = handleRequests.getAllPositions();
-			monthlyRdfActions.addAllPositionsToModel(model, positionsList);
-
-			// Create the Organizations, Feks, Units, and Signers
-			// Organizations organizationsList =
-			// handleRequests.getAllOrganizations();
-			// monthlyRdfActions.addAllOrganizationsToModel(model,
-			// organizationsList);
-
-			/* store the model */
-			rdfActions.writeModel(model);
-		}
+		// if (Configuration.searchMontlhy) {
+		// DictionaryItems dictItemsList = null;
+		// List<String> dictionaries = Arrays.asList("ORG_CATEGORY",
+		// "ORG_UNIT_CATEGORY", "ORG_DOMAIN", "THK",
+		// "VAT_TYPE");
+		//
+		// for (String dict : dictionaries) {
+		// dictItemsList = handleRequests.getDictionaryItems(dict); // Fetch
+		// // the
+		// // items
+		// // of
+		// // the
+		// // provided
+		// // dictionary
+		// monthlyRdfActions.addDiavgeiaRelatedConceptsToModel(model,
+		// dictItemsList); // create
+		// // their
+		// // SKOS
+		// // Concepts
+		// }
+		//
+		// // Create OrganizationStatus
+		// monthlyRdfActions.addOrganizationStatusToModel(model);
+		//
+		// // Create DecisionStatus
+		// monthlyRdfActions.addDecisionStatusToModel(model);
+		//
+		// // Create Regulatory Act Type
+		// monthlyRdfActions.addKanonistikiToModel(model);
+		//
+		// // Create Opinion Org Type
+		// monthlyRdfActions.addOpinionToModel(model);
+		//
+		// // Create Budget Kind
+		// monthlyRdfActions.addBudgetKindToModel(model);
+		//
+		// // Create Account Type
+		// monthlyRdfActions.addAccountTypeToModel(model);
+		//
+		// // Create Position Type
+		// monthlyRdfActions.addPositionTypeToModel(model);
+		//
+		// // Create Collective Kind
+		// monthlyRdfActions.addCollectiveKindToModel(model);
+		//
+		// // Create Collective Type
+		// monthlyRdfActions.addCollectiveTypeToModel(model);
+		//
+		// // Create Vacancy Type
+		// monthlyRdfActions.addVacancyTypeToModel(model);
+		//
+		// // Create Administrative Change
+		// monthlyRdfActions.addAdminChangeToModel(model);
+		//
+		// // Create Time Period
+		// monthlyRdfActions.addTimePeriodToModel(model);
+		//
+		// // // Create SelectionCriterion
+		// // monthlyRdfActions.addSelectionCriteriaToModel(model);
+		//
+		// // Create BudgetType
+		// monthlyRdfActions.addBudgetTypeToModel(model);
+		//
+		// // Create the Fek Type Issues
+		// dictItemsList = handleRequests.getDictionaryItems("FEKTYPES");
+		// monthlyRdfActions.addFekTypeIsuesToModel(model, dictItemsList);
+		//
+		// // Create the Countries
+		// dictItemsList = handleRequests.getDictionaryItems("EE_MEMBER");
+		// monthlyRdfActions.addCountriesToModel(model, dictItemsList);
+		//
+		// // Create the Currencies
+		// dictItemsList = handleRequests.getDictionaryItems("CURRENCY");
+		// monthlyRdfActions.addCurrenciesToModel(model, dictItemsList);
+		//
+		// // Create the Positions
+		// ArrayList<Position> positionsList = handleRequests.getAllPositions();
+		// monthlyRdfActions.addAllPositionsToModel(model, positionsList);
+		//
+		// // Create the Organizations, Feks, Units, and Signers
+		// Organizations organizationsList =
+		// handleRequests.getAllOrganizations();
+		// monthlyRdfActions.addAllOrganizationsToModel(model,
+		// organizationsList);
+		//
+		// /* store the model */
+		// rdfActions.writeModel(model);
+		// }
 
 		/** DAILY **/
 		if (Configuration.searchDay) {
@@ -177,8 +180,8 @@ public class Main {
 
 		/** PERIOD **/
 		if (Configuration.searchPeriod) {
-			LocalDate startDate = new LocalDate("2015-12-01");
-			LocalDate endDate = new LocalDate("2015-12-16"); // this date is not
+			LocalDate startDate = new LocalDate("2010-01-01");
+			LocalDate endDate = new LocalDate("2017-04-01"); // this date is not
 																// retrieved
 
 			List<String> datesList = hm.getListOfDates(startDate, endDate);
@@ -212,6 +215,7 @@ public class Main {
 	private static void dailyDecisions(String aDate, Model model) throws IOException {
 
 		RdfActions rdfActions = new RdfActions();
+		RdfActionsForSubprojects rdfActionsForSubproject = new RdfActionsForSubprojects();
 		HandleApiRequests handleRequests = new HandleApiRequests();
 		HelperMethods hm = new HelperMethods();
 
@@ -219,20 +223,22 @@ public class Main {
 		System.out.println("Searching date: " + aDate);
 		// starts
 		// read csv
-		String csvFile = "csv_file/subprojects.csv";
+		String csvFileProject = "/home/ncsr/diavgeia/subject_criteria.csv"; // csv_file/criteria_subject.csv
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
 
-		br = new BufferedReader(new FileReader(csvFile));
+		br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFileProject), "UTF8"));
+
 		while ((line = br.readLine()) != null) {
 			String[] project = line.split(cvsSplitBy);
-			String opsCode = project[0];
-			String code = project[1];
-			String subjectOfProject = project[2];
-			String afm = project[3];
+			String uriSubproject = project[0];
+//			String uriProject = project[1];
+			String subjectOfProject = project[1].replace("\"", "").replace("*", "").replace("<<", "")
+					.replace(">>", "").replace("&", "").replace("[", "").replace("]", "");
+			// String afm = project[3];
 
-			List<Decision> descionsList = handleRequests.searchDecisions(aDate, model, subjectOfProject, afm);
+			List<Decision> descionsList = handleRequests.searchDecisions(aDate, model, subjectOfProject);
 
 			int decisionCounter = 1;
 			int totalDecisions = descionsList.size();
@@ -242,7 +248,7 @@ public class Main {
 				System.out.print("\nDecision number " + decisionCounter + " out of " + totalDecisions);
 				// decision = handleRequests.searchSingleDecision("");
 				if (decision.getAda() != null) {
-					rdfActions.createRdfFromDecision(decision, model, opsCode, code);
+					rdfActions.createRdfFromDecision(decision, model, uriSubproject);
 				}
 				decisionCounter += 1;
 				// break;
@@ -251,6 +257,40 @@ public class Main {
 
 		/* store the model */
 		rdfActions.writeModel(model);
+
+		// starts
+		// read csv
+		String csvFileSubproject = "/home/ncsr/diavgeia/criteria.csv";
+
+		br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFileSubproject), "UTF8"));
+		while ((line = br.readLine()) != null) {
+			String[] subprojects = line.split(cvsSplitBy);
+			String uriSubproject = subprojects[0];
+//			String uriProject = subprojects[1];
+			String afm = subprojects[2];
+			String subjectOfProject = subprojects[1].replace("\"", "").replace("*", "").replace("<<", "")
+					.replace(">>", "").replace("&", "").replace("[", "").replace("]", "");
+
+			List<Decision> descionsList = handleRequests.searchDecisionsForSubprojects(aDate, model, subjectOfProject,
+					afm);
+
+			int decisionCounter = 1;
+			int totalDecisions = descionsList.size();
+
+			// For each Decision add it to the RDF graph
+			for (Decision decision : descionsList) {
+				System.out.print("\nDecision number " + decisionCounter + " out of " + totalDecisions);
+				// decision = handleRequests.searchSingleDecision("");
+				if (decision.getAda() != null) {
+					rdfActionsForSubproject.createRdfFromDecision(decision, model, uriSubproject);
+				}
+				decisionCounter += 1;
+				// break;
+			}
+		} // ends
+
+		/* store the model */
+		rdfActionsForSubproject.writeModel(model);
 
 		hm.writeUnknownMetadata("datesOK", aDate);
 	}

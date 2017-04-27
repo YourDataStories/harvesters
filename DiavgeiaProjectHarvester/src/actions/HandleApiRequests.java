@@ -45,7 +45,7 @@ public class HandleApiRequests {
 	 * @throws IOException
 	 */
 
-	public List<Decision> searchDecisions(String dateToSearch, Model model, String subjectOfProject, String afm)
+	public List<Decision> searchDecisions(String dateToSearch, Model model, String subjectOfProject)
 			throws IOException {
 
 		int pageNumber = 0;
@@ -62,13 +62,73 @@ public class HandleApiRequests {
 			while (!fetchedAll) { // while results exist
 
 				// query for projects
-//				String query = "/search/advanced?q=subject:\"" + subjectOfProject + "\"" + "&size="
-//						+ Configuration.RESULTS_PER_PAGE + "&page=" + pageNumber;
+				String query = "/search/advanced?q=subject:\"" + subjectOfProject + "\"" + "&size="
+						+ Configuration.RESULTS_PER_PAGE + "&page=" + pageNumber;
+
+				// query for subprojects
+//				 String query =
+//				 "/search/advanced?q=subject:\""+subjectOfProject+"\""
+//				 + "&ANDreceiverAFM:\""+afm+"\""
+//				 + "&size=" + Configuration.RESULTS_PER_PAGE + "&page=" +
+//				 pageNumber;
+
+				IHttpRequestBuilder req = HttpRequests.get(conf.getBaseUrl() + query);
+
+				if (conf.isAuthenticationEnabled()) {
+					System.out.println("Authenticated Request");
+					req.addCredentials(conf.getUsername(), conf.getPassword());
+				}
+				req.addHeader("Accept", "application/json");
+
+				response = req.execute();
+
+				if (response.getStatusCode() == HttpURLConnection.HTTP_OK) {
+					String body = StringUtil.readInputStream(response.getBody());
+
+					DecisionSearchResult searchResults = JsonUtil.fromString(body, DecisionSearchResult.class);
+					Info info = searchResults.getInfo();
+
+					if (info.getActualSize() < Configuration.RESULTS_PER_PAGE) {
+						fetchedAll = true;
+					} else {
+						pageNumber += 1;
+						System.out.println("Requesting page number: " + pageNumber + "\n");
+					}
+					System.out.println(String.format("Just retrieved %d decisions", info.getActualSize()));
+					System.out.println(String.format("Total matching decisions: %d", info.getTotal()));
+					System.out.println(String.format("Search query syntax: %s", info.getQuery()));
+					System.out.print("\n");
+
+					descionsList.addAll(searchResults.getDecisions());
+				}
+			}
+			// }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return descionsList;
+	}
+	
+	public List<Decision> searchDecisionsForSubprojects(String dateToSearch, Model model, String subjectOfProject, String afm)
+			throws IOException {
+
+		int pageNumber = 0;
+		boolean fetchedAll = false;
+
+		Configuration conf = null;
+		HttpResponse response = null;
+
+		List<Decision> descionsList = new ArrayList<Decision>();
+
+		try {
+			conf = new Configuration();
+
+			while (!fetchedAll) { // while results exist
 
 				// query for subprojects
 				 String query =
 				 "/search/advanced?q=subject:\""+subjectOfProject+"\""
-				 + "&ANDreceiverAFM:\""+afm+"\""
+				 + "ANDreceiverAFM:\""+afm+"\""
 				 + "&size=" + Configuration.RESULTS_PER_PAGE + "&page=" +
 				 pageNumber;
 
@@ -108,6 +168,7 @@ public class HandleApiRequests {
 		}
 		return descionsList;
 	}
+	
 
 	/**
 	 * Fetch the details of the specific signer id.

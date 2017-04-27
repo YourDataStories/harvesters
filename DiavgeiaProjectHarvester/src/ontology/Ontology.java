@@ -67,6 +67,13 @@ public class Ontology {
 	public static final Resource collectiveKindResource;
 	public static final Resource vacancyTypeResource;
 	public static final Resource adminChangeResource;
+	public static final Resource administrativeResource;
+	//Pilot 2
+	public static final Resource disbursedResource;
+	public static final Resource aidResource;
+	public static final Resource tradeResource;
+	public static final Resource nationalAgentResource;
+	public static final Resource amountResource;
 	//FOAF
 	public static final Resource personResource;
 	public static final Resource agentResource;
@@ -144,6 +151,15 @@ public class Ontology {
 	public static final Property competentMinistry;
 	public static final Property competentUnit;
 	public static final Property hasOfficialAdministrativeChange;
+	//Pilot 2
+	public static final Property benefactor;
+	public static final Property aidType;
+	public static final Property hasRelatedDisbursedItem;
+	public static final Property transactionType;
+	public static final Property orgType;
+	public static final Property concerns;
+	public static final Property hasOrigin;
+	public static final Property hasDestination;
 	//SKOS
 	public static final Property hasTopConcept;
 	public static final Property topConceptOf;
@@ -243,7 +259,15 @@ public class Ontology {
 	public static final Property lawYear;
 	public static final Property lawNumber;
 	public static final Property refersTo;
+	public static final Property sellerCriteria;
+	public static final Property subjectCriteria;
 	public static final Property uuid;
+	//Pilot 2
+	public static final Property plannedStartDate;
+	public static final Property plannedEndDate;
+	public static final Property refCode;
+	public static final Property transactionDate;
+	public static final Property valueDate;
 	//GR
 	public static final Property vatId;
 	public static final Property name;
@@ -339,6 +363,14 @@ public class Ontology {
 		collectiveKindResource = ResourceFactory.createResource(eLodPrefix + "CollectiveBodyKind");
 		vacancyTypeResource = ResourceFactory.createResource(eLodPrefix + "VacancyType");
 		adminChangeResource = ResourceFactory.createResource(eLodPrefix + "OfficialAdministrativeChange");
+		administrativeResource = ResourceFactory.createResource(eLodPrefix + "AdministrativeDecision");
+		
+		//Pilot 2
+		disbursedResource = ResourceFactory.createResource(eLodPrefix + "DisbursedItem");
+		aidResource = ResourceFactory.createResource(eLodPrefix + "AidActivity");
+		tradeResource = ResourceFactory.createResource(eLodPrefix + "TradeActivity");
+		nationalAgentResource = ResourceFactory.createResource(eLodPrefix + "GroupNationalAgent");
+		amountResource = ResourceFactory.createResource(eLodPrefix + "Amount");
 		
 		//FOAF
 		organizationResource = ResourceFactory.createResource(foafPrefix + "Organization");
@@ -415,6 +447,16 @@ public class Ontology {
 		competentMinistry = ResourceFactory.createProperty(eLodPrefix + "competentMinistry");
 		competentUnit = ResourceFactory.createProperty(eLodPrefix + "competentUnit");
 		hasOfficialAdministrativeChange = ResourceFactory.createProperty(eLodPrefix + "hasOfficialAdministrativeChange");
+		//
+		//Pilot 2
+		benefactor = ResourceFactory.createProperty(eLodPrefix + "benefactor");
+		aidType = ResourceFactory.createProperty(eLodPrefix + "aidType");
+		hasRelatedDisbursedItem = ResourceFactory.createProperty(eLodPrefix + "hasRelatedDisbursedItem");
+		transactionType = ResourceFactory.createProperty(eLodPrefix + "transactionType");
+		orgType = ResourceFactory.createProperty(regOrgPrefix + "orgType");
+		concerns = ResourceFactory.createProperty(eLodPrefix + "concerns");
+		hasOrigin = ResourceFactory.createProperty(eLodPrefix + "hasOrigin");
+		hasDestination = ResourceFactory.createProperty(eLodPrefix + "hasDestination");
 		//SKOS
 		hasTopConcept = ResourceFactory.createProperty(skosPrefix + "hasTopConcept");
 		topConceptOf = ResourceFactory.createProperty(skosPrefix + "topConceptOf");
@@ -516,7 +558,15 @@ public class Ontology {
 		lawYear = ResourceFactory.createProperty(eLodPrefix + "lawYear");
 		lawNumber = ResourceFactory.createProperty(eLodPrefix + "lawNumber");
 		refersTo = ResourceFactory.createProperty(eLodPrefix + "refersTo");
+		sellerCriteria = ResourceFactory.createProperty(eLodPrefix + "sellerCriteria");
+		subjectCriteria = ResourceFactory.createProperty(eLodPrefix + "subjectCriteria");
 		uuid = ResourceFactory.createProperty(muPrefix + "uuid");
+		//Pilot 2
+		plannedStartDate = ResourceFactory.createProperty(eLodPrefix + "plannedStartDate");
+		plannedEndDate = ResourceFactory.createProperty(eLodPrefix + "plannedEndDate");
+		refCode = ResourceFactory.createProperty(eLodPrefix + "refCode");
+		transactionDate = ResourceFactory.createProperty(eLodPrefix + "transactionDate");
+		valueDate = ResourceFactory.createProperty(eLodPrefix + "valueDate");
 		//GR
 		vatId = ResourceFactory.createProperty(goodRelationsPrefix + "vatID");
 		valueAddedTaxIncluded = ResourceFactory.createProperty(goodRelationsPrefix + "valueAddedTaxIncluded");

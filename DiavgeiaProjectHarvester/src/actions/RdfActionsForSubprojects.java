@@ -37,7 +37,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
  * @author G. Razis
  * @author G. Vafeiadis
  */
-public class RdfActions {
+public class RdfActionsForSubprojects {
 
 	/**
 	 * Fetch all the details from the provided decision object, create the RDF
